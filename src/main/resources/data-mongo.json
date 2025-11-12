@@ -1,0 +1,81 @@
+{
+  "exercises": [
+    {
+      "name": "Push Ups",
+      "description": "Flexiones de pecho para fuerza superior.",
+      "type": "fuerza",
+      "createdAt": { "$date": "2025-11-10T12:00:00Z" },
+      "duration": 5,
+      "difficulty": 3,
+      "videos": ["https://www.youtube.com/watch?v=IODxDxX7oi4"],
+      "createdBy": { "userId": "trainer_juan", "name": "Juan Pérez" },
+      "isPredefined": true
+    },
+    {
+      "name": "Running",
+      "description": "Trote ligero para mejorar resistencia.",
+      "type": "cardio",
+      "createdAt": { "$date": "2025-11-09T10:30:00Z" },
+      "duration": 30,
+      "difficulty": 2,
+      "videos": ["https://www.youtube.com/watch?v=Hv4A7iYJQ-4"],
+      "createdBy": { "userId": "trainer_juan", "name": "Juan Pérez" },
+      "isPredefined": true
+    }
+  ],
+  "routines": [
+    {
+      "name": "Rutina Principiante",
+      "description": "Rutina básica para nuevos usuarios",
+      "createdAt": { "$date": "2025-11-01T09:00:00Z" },
+      "isPredefined": true,
+      "createdBy": { "userId": "trainer_juan", "name": "Juan Pérez" },
+      "exercises": [
+        { "exerciseId": "pushup_1", "name": "Push Ups", "sets": 3, "reps": 12, "duration": 300 },
+        { "exerciseId": "running_1", "name": "Running", "sets": 1, "reps": 0, "duration": 1800 }
+      ],
+      "isCertified": true,
+      "owners": [
+        { "userId": "user_carlos", "date": { "$date": "2025-11-05T10:00:00Z" }, "isModified": false }
+      ],
+      "recommendations": []
+    }
+  ],
+  "progress": [
+    {
+      "userId": "user_carlos",
+      "routineId": "rutina_basica_1",
+      "createdAt": { "$date": "2025-11-08T10:00:00Z" },
+      "exercise": {
+        "exerciseId": "pushup_1",
+        "name": "Push Ups",
+        "type": "fuerza",
+        "duration": 300,
+        "difficulty": 3,
+        "sets": 3,
+        "reps": 12
+      },
+      "metrics": { "reps": 36, "weight": 0, "time": 300, "distance": 0, "effortLevel": 7 }
+    }
+  ],
+  "assignments": [
+    {
+      "userId": "user_carlos",
+      "trainerId": "trainer_juan",
+      "assignedAt": { "$date": "2025-11-03T14:00:00Z" },
+      "isActive": true,
+      "assignedBy": "admin_maria",
+      "createdAt": { "$date": "2025-11-03T13:00:00Z" }
+    }
+  ],
+  "recommendations": [
+    {
+      "userId": "user_carlos",
+      "trainerId": "trainer_juan",
+      "routineId": "rutina_basica_1",
+      "message": "Excelente progreso, intenta subir la dificultad la próxima semana 💪",
+      "createdAt": { "$date": "2025-11-09T10:30:00Z" },
+      "isRead": false
+    }
+  ]
+}
