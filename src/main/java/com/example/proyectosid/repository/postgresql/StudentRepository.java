@@ -20,5 +20,5 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     List<Student> findByCampusCode(Integer campusCode);
 
     // Buscar estudiantes por nombre
-    List<Student> searchStudentsByName(String name);
+    List<Student> searchStudentsByFirstName(String name);
 }
