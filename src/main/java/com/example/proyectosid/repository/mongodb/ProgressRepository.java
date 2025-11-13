@@ -38,4 +38,10 @@ public interface ProgressRepository extends MongoRepository<Progress, String> {
     // Progreso de un usuario en una rutina ordenado por fecha
     @Query("{ 'userId': ?0, 'routineId': ?1 }")
     List<Progress> findByUserAndRoutineOrderByCreatedAtAsc(String userId, String routineId);
+
+    @Query("{ 'userId': ?0, 'exercise.exerciseId': ?1, 'createdAt': { $gte: ?2, $lte: ?3 } }")
+    List<Progress> findByUserExerciseAndDateRange(String userId, String exerciseId, LocalDateTime startDate, LocalDateTime endDate);
+    
+    List<Progress> findByUserIdAndRoutineId(String userId, String routineId);
+
 }
