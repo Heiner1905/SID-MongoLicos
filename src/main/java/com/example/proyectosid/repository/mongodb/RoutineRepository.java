@@ -37,4 +37,18 @@ public interface RoutineRepository extends MongoRepository<Routine, String> {
     // Rutinas creadas por entrenadores (certificadas)
     @Query("{ 'createdBy.role': 'trainer', 'isCertified': true }")
     List<Routine> findAllCertifiedByTrainers();
+
+     // Rutinas creadas por el usuario
+    @Query("{ 'createdBy.userId': ?0 }")
+    List<Routine> findRoutinesCreatedByUser(String userId);
+
+    // Rutinas adoptadas por el usuario
+    @Query("{ 'owners.userId': ?0 }")
+    List<Routine> findRoutinesAdoptedByUser(String userId);
+
+    // O combinadas (ambas en una sola consulta)
+    @Query("{ '$or': [ { 'createdBy.userId': ?0 }, { 'owners.userId': ?0 } ] }")
+    List<Routine> findAllRoutinesByUserId(String userId);
+
+    List<Routine> findAll();
 }
