@@ -1,0 +1,22 @@
+[
+  {
+    "userId": "user_carlos",
+    "routineId": "rutina_basica_1",
+    "createdAt": "2025-11-08T10:00:00",
+    "completedAt": "2025-11-08T10:30:00",
+    "exercise": {
+      "exerciseId": "pushup_1",
+      "name": "Push Ups",
+      "type": "fuerza"
+    },
+    "metrics": {
+      "reps": 36,
+      "sets": 3,
+      "weight": 0.0,
+      "time": 300,
+      "distance": 0.0,
+      "effortLevel": 7
+    },
+    "notes": "Buen esfuerzo"
+  }
+]

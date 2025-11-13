@@ -1,0 +1,39 @@
+[
+  {
+    "id": "rutina_basica_1",
+    "name": "Rutina Principiante",
+    "description": "Rutina básica para nuevos usuarios",
+    "createdAt": "2025-11-01T09:00:00",
+    "updatedAt": "2025-11-01T09:00:00",
+    "isPredefined": true,
+    "originalRoutineId": null,
+    "createdBy": {
+      "userId": "trainer_juan",
+      "name": "Juan Pérez"
+    },
+    "exercises": [
+      {
+        "exerciseId": "pushup_1",
+        "name": "Push Ups",
+        "sets": 3,
+        "reps": 12,
+        "duration": 300,
+        "order": 1,
+        "restTime": 60,
+        "notes": ""
+      },
+      {
+        "exerciseId": "running_1",
+        "name": "Running",
+        "sets": 1,
+        "reps": 0,
+        "duration": 1800,
+        "order": 2,
+        "restTime": 0,
+        "notes": ""
+      }
+    ],
+    "isCertified": true,
+    "isActive": true
+  }
+]

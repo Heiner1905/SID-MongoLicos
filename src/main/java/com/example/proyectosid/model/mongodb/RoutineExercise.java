@@ -1,6 +1,5 @@
 package com.example.proyectosid.model.mongodb;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

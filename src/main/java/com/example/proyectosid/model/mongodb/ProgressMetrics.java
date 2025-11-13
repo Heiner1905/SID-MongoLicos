@@ -1,6 +1,5 @@
 package com.example.proyectosid.model.mongodb;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProgressMetrics {
     private Integer reps;
+    private Integer sets;       // ← FALTABA ESTE
     private Double weight;      // kg
     private Integer time;       // segundos
     private Double distance;    // km

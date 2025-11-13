@@ -1,0 +1,10 @@
+[
+  {
+    "userId": "user_carlos",
+    "trainerId": "trainer_juan",
+    "routineId": "rutina_basica_1",
+    "message": "Excelente progreso, intenta subir la dificultad la próxima semana 💪",
+    "createdAt": "2025-11-09T10:30:00",
+    "isRead": false
+  }
+]

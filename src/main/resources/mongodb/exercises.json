@@ -1,0 +1,32 @@
+[
+  {
+    "id": "pushup_1",
+    "name": "Push Ups",
+    "description": "Flexiones de pecho para fuerza superior.",
+    "type": "fuerza",
+    "createdAt": "2025-11-10T12:00:00",
+    "duration": 5,
+    "difficulty": 3,
+    "videos": ["https://www.youtube.com/watch?v=IODxDxX7oi4"],
+    "createdBy": {
+      "userId": "trainer_juan",
+      "name": "Juan Pérez"
+    },
+    "isPredefined": true
+  },
+  {
+    "id": "running_1",
+    "name": "Running",
+    "description": "Trote ligero para mejorar resistencia.",
+    "type": "cardio",
+    "createdAt": "2025-11-09T10:30:00",
+    "duration": 30,
+    "difficulty": 2,
+    "videos": ["https://www.youtube.com/watch?v=Hv4A7iYJQ-4"],
+    "createdBy": {
+      "userId": "trainer_juan",
+      "name": "Juan Pérez"
+    },
+    "isPredefined": true
+  }
+]

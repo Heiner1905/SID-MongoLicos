@@ -1,0 +1,13 @@
+[
+  {
+    "userId": "user_carlos",
+    "trainerId": "trainer_juan",
+    "assignedAt": "2025-11-03T14:00:00",
+    "unassignedAt": null,
+    "isActive": true,
+    "assignedBy": "admin_maria",
+    "notes": "",
+    "createdAt": "2025-11-03T13:00:00",
+    "updatedAt": "2025-11-03T13:00:00"
+  }
+]
