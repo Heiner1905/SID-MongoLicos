@@ -10,18 +10,20 @@ import com.example.proyectosid.model.mongodb.Routine;
 
 public interface IRoutineService {
     List<Routine> getRoutinesByUserId(String userId);
+
+    List<Routine> getCertifiedTemplates();
+
     List<Routine> findAll();
-    Routine createRoutine(RoutineRequest request);
-    List<RoutineResponseDTO> getAvailableRoutines(String userId);
 
-    List<RoutineResponseDTO> getActiveRoutinesByUser(String userId);
+    Routine createRoutine(Routine routine);
 
-    RoutineResponseDTO createRoutine(RoutineCreateDTO dto, String username);
+    Routine getRoutineById(String id);
 
-    RoutineResponseDTO adoptRoutine(String templateId, String username);
+    Routine updateRoutine(String id, Routine routine);
 
-    RoutineResponseDTO getRoutineById(String id);
+    Routine deactivateRoutine(String id);
 
-    void deactivateRoutine(String id, String username);
+    void deleteRoutine(String id);
+
 
 }

@@ -1,15 +1,10 @@
 package com.example.proyectosid.controller;
 
-import com.example.proyectosid.dto.RoutineCreateDTO;
-import com.example.proyectosid.dto.RoutineResponseDTO;
-import com.example.proyectosid.dto.RoutineRequest;
 import com.example.proyectosid.model.mongodb.Routine;
 import com.example.proyectosid.services.mongodb.IRoutineService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,71 +17,44 @@ public class RoutineController {
 
     private final IRoutineService routineService;
 
-    // Rutinas por user_id
+    /**
+     * Obtener rutinas activas del usuario
+     * GET /api/routines/user/{userId}
+     */
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Routine>> getRoutinesByUser(@PathVariable String userId) {
         List<Routine> routines = routineService.getRoutinesByUserId(userId);
-    /**
-     * 3. Obtener rutinas que NO tiene el usuario (plantillas disponibles)
-     * GET /api/routines/available/{userId}
-     */
-    @GetMapping("/available/{userId}")
-    public ResponseEntity<List<RoutineResponseDTO>> getAvailableRoutines(
-            @PathVariable String userId) {
-
-        List<RoutineResponseDTO> routines = routineService.getAvailableRoutines(userId);
         return ResponseEntity.ok(routines);
     }
 
-    // Obtener todas las rutinas
+    /**
+     * Obtener todas las rutinas predefinidas (plantillas certificadas)
+     * GET /api/routines/templates
+     */
+    @GetMapping("/templates")
+    public ResponseEntity<List<Routine>> getCertifiedTemplates() {
+        List<Routine> templates = routineService.getCertifiedTemplates();
+        return ResponseEntity.ok(templates);
+    }
+
+    /**
+     * Obtener todas las rutinas
+     * GET /api/routines/all
+     */
     @GetMapping("/all")
     public ResponseEntity<List<Routine>> getAllRoutines() {
         List<Routine> routines = routineService.findAll();
-    /**
-     * Obtener rutinas activas del usuario
-     * GET /api/routines/active/{userId}
-     */
-    @GetMapping("/active/{userId}")
-    public ResponseEntity<List<RoutineResponseDTO>> getActiveRoutines(
-            @PathVariable String userId) {
-
-        List<RoutineResponseDTO> routines = routineService.getActiveRoutinesByUser(userId);
         return ResponseEntity.ok(routines);
     }
 
-    // Crear rutina
-    @PostMapping("/createRoutine")
-    public ResponseEntity<Routine> createRoutine(@RequestBody RoutineRequest request) {
-        Routine created = routineService.createRoutine(request);
-        return ResponseEntity.ok(created);
     /**
-     * Crear rutina personalizada
+     * Crear rutina
      * POST /api/routines
      */
     @PostMapping
-    public ResponseEntity<RoutineResponseDTO> createRoutine(
-            @Valid @RequestBody RoutineCreateDTO dto,
-            Authentication authentication) {
-
-        String username = authentication.getName();
-        RoutineResponseDTO created = routineService.createRoutine(dto, username);
-
+    public ResponseEntity<Routine> createRoutine(@RequestBody Routine routine) {
+        Routine created = routineService.createRoutine(routine);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
-    }
-
-    /**
-     * Adoptar una rutina predefinida
-     * POST /api/routines/{templateId}/adopt
-     */
-    @PostMapping("/{templateId}/adopt")
-    public ResponseEntity<RoutineResponseDTO> adoptRoutine(
-            @PathVariable String templateId,
-            Authentication authentication) {
-
-        String username = authentication.getName();
-        RoutineResponseDTO adopted = routineService.adoptRoutine(templateId, username);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(adopted);
     }
 
     /**
@@ -94,9 +62,22 @@ public class RoutineController {
      * GET /api/routines/{id}
      */
     @GetMapping("/{id}")
-    public ResponseEntity<RoutineResponseDTO> getRoutineById(@PathVariable String id) {
-        RoutineResponseDTO routine = routineService.getRoutineById(id);
+    public ResponseEntity<Routine> getRoutineById(@PathVariable String id) {
+        Routine routine = routineService.getRoutineById(id);
         return ResponseEntity.ok(routine);
+    }
+
+    /**
+     * Actualizar rutina
+     * PUT /api/routines/{id}
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Routine> updateRoutine(
+            @PathVariable String id,
+            @RequestBody Routine routine) {
+
+        Routine updated = routineService.updateRoutine(id, routine);
+        return ResponseEntity.ok(updated);
     }
 
     /**
@@ -104,13 +85,18 @@ public class RoutineController {
      * PUT /api/routines/{id}/deactivate
      */
     @PutMapping("/{id}/deactivate")
-    public ResponseEntity<Void> deactivateRoutine(
-            @PathVariable String id,
-            Authentication authentication) {
+    public ResponseEntity<Routine> deactivateRoutine(@PathVariable String id) {
+        Routine deactivated = routineService.deactivateRoutine(id);
+        return ResponseEntity.ok(deactivated);
+    }
 
-        String username = authentication.getName();
-        routineService.deactivateRoutine(id, username);
-
+    /**
+     * Eliminar rutina
+     * DELETE /api/routines/{id}
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteRoutine(@PathVariable String id) {
+        routineService.deleteRoutine(id);
         return ResponseEntity.noContent().build();
     }
 }
