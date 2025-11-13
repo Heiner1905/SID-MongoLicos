@@ -116,5 +116,15 @@ public class ExerciseServiceImpl implements IExerciseService {
         dto.setCreatedAt(exercise.getCreatedAt());
         return dto;
     }
+
+    @Override
+    public List<Exercise> findAll() {
+        return exerciseRepository.findAll();
+    }
+
+    @Override
+    public List<Exercise> getExercisesByUserId(String userId) {
+        return exerciseRepository.findByCreatorUserId(userId);
+    }
     
 }

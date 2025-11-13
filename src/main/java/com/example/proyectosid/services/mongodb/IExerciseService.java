@@ -2,6 +2,7 @@ package com.example.proyectosid.services.mongodb;
 
 import com.example.proyectosid.dto.ExerciseCreateDTO;
 import com.example.proyectosid.dto.ExerciseResponseDTO;
+import com.example.proyectosid.model.mongodb.Exercise;
 
 import java.util.List;
 
@@ -14,4 +15,8 @@ public interface IExerciseService {
     List<ExerciseResponseDTO> getAllPredefinedExercises();
 
     ExerciseResponseDTO getExerciseById(String id);
+
+    List<Exercise> findAll();
+
+    List<Exercise> getExercisesByUserId(String userId);
 }

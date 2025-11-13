@@ -33,4 +33,6 @@ public interface ExerciseRepository extends MongoRepository<Exercise, String> {
     // Ejercicios predefinidos por tipo y dificultad
     @Query("{ 'isPredefined': true, 'type': ?0, 'difficulty': { $lte: ?1 } }")
     List<Exercise> findPredefinedByTypeAndMaxDifficulty(String type, Integer maxDifficulty);
+
+    List<Exercise> findAll();
 }

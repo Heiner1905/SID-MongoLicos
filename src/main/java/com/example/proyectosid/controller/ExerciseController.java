@@ -2,6 +2,7 @@ package com.example.proyectosid.controller;
 
 import com.example.proyectosid.dto.ExerciseCreateDTO;
 import com.example.proyectosid.dto.ExerciseResponseDTO;
+import com.example.proyectosid.model.mongodb.Exercise;
 import com.example.proyectosid.services.mongodb.IExerciseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -64,5 +65,19 @@ public class ExerciseController {
     public ResponseEntity<ExerciseResponseDTO> getExerciseById(@PathVariable String id) {
         ExerciseResponseDTO exercise = exerciseService.getExerciseById(id);
         return ResponseEntity.ok(exercise);
+    }
+
+     // Obtener todos los ejercicios
+    @GetMapping("/all")
+    public ResponseEntity<List<Exercise>> getAllExercises() {
+        List<Exercise> exercises = exerciseService.findAll();
+        return ResponseEntity.ok(exercises);
+    }
+
+    // Obtener ejercicios creados por un usuario
+    @GetMapping("/byUser/{userId}")
+    public ResponseEntity<List<Exercise>> getExercisesByUser(@PathVariable String userId) {
+        List<Exercise> exercises = exerciseService.getExercisesByUserId(userId);
+        return ResponseEntity.ok(exercises);
     }
 }
