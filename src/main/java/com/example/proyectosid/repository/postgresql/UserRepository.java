@@ -27,4 +27,6 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     // Buscar usuarios por student_id
     Optional<User> findByStudentId(String studentId);
+
+    List<User> findByRole(String role);
 }

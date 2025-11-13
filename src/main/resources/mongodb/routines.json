@@ -1,12 +1,14 @@
 [
   {
-    "id": "rutina_basica_1",
-    "name": "Rutina Principiante",
-    "description": "Rutina básica para nuevos usuarios",
-    "createdAt": "2025-11-01T09:00:00",
-    "updatedAt": "2025-11-01T09:00:00",
+    "id": "routine_beginner_1",
+    "name": "Rutina para Principiantes",
+    "description": "Rutina básica de cuerpo completo ideal para comenzar tu entrenamiento.",
+    "createdAt": "2025-11-01T08:00:00",
+    "updatedAt": "2025-11-01T08:00:00",
     "isPredefined": true,
     "originalRoutineId": null,
+    "urlImg": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800",
+    "startDate": "2025-11-01T08:00:00",
     "createdBy": {
       "userId": "trainer_juan",
       "name": "Juan Pérez"
@@ -16,24 +18,232 @@
         "exerciseId": "pushup_1",
         "name": "Push Ups",
         "sets": 3,
-        "reps": 12,
-        "duration": 300,
-        "order": 1,
-        "restTime": 60,
-        "notes": ""
+        "reps": 10,
+        "duration": 300
       },
+      {
+        "exerciseId": "squats_1",
+        "name": "Squats",
+        "sets": 3,
+        "reps": 15,
+        "duration": 450
+      },
+      {
+        "exerciseId": "plank_1",
+        "name": "Plank",
+        "sets": 3,
+        "reps": 1,
+        "duration": 180
+      }
+    ],
+    "isCertified": true,
+    "isActive": true
+  },
+  {
+    "id": "routine_cardio_1",
+    "name": "Rutina Cardio Intenso",
+    "description": "Entrenamiento cardiovascular de alta intensidad para quemar calorías.",
+    "createdAt": "2025-11-05T07:00:00",
+    "updatedAt": "2025-11-05T07:00:00",
+    "isPredefined": true,
+    "originalRoutineId": null,
+    "urlImg": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800",
+    "startDate": "2025-11-05T07:00:00",
+    "createdBy": {
+      "userId": "trainer_juan",
+      "name": "Juan Pérez"
+    },
+    "exercises": [
       {
         "exerciseId": "running_1",
         "name": "Running",
         "sets": 1,
-        "reps": 0,
-        "duration": 1800,
-        "order": 2,
-        "restTime": 0,
-        "notes": ""
+        "reps": 1,
+        "duration": 1800
+      },
+      {
+        "exerciseId": "burpees_1",
+        "name": "Burpees",
+        "sets": 4,
+        "reps": 12,
+        "duration": 300
+      },
+      {
+        "exerciseId": "cycling_1",
+        "name": "Cycling",
+        "sets": 1,
+        "reps": 1,
+        "duration": 1500
       }
     ],
     "isCertified": true,
+    "isActive": true
+  },
+  {
+    "id": "routine_strength_1",
+    "name": "Fuerza Total",
+    "description": "Rutina enfocada en desarrollo de fuerza muscular completa.",
+    "createdAt": "2025-11-08T18:00:00",
+    "updatedAt": "2025-11-08T18:00:00",
+    "isPredefined": false,
+    "originalRoutineId": null,
+    "urlImg": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800",
+    "startDate": "2025-11-08T18:00:00",
+    "createdBy": {
+      "userId": "user_carlos",
+      "name": "Carlos Mendoza"
+    },
+    "exercises": [
+      {
+        "exerciseId": "deadlift_1",
+        "name": "Deadlift",
+        "sets": 4,
+        "reps": 8,
+        "duration": 480
+      },
+      {
+        "exerciseId": "pullups_1",
+        "name": "Pull Ups",
+        "sets": 4,
+        "reps": 6,
+        "duration": 360
+      },
+      {
+        "exerciseId": "squats_1",
+        "name": "Squats",
+        "sets": 4,
+        "reps": 10,
+        "duration": 540
+      },
+      {
+        "exerciseId": "pushup_1",
+        "name": "Push Ups",
+        "sets": 3,
+        "reps": 15,
+        "duration": 450
+      }
+    ],
+    "isCertified": false,
+    "isActive": true
+  },
+  {
+    "id": "routine_flexibility_1",
+    "name": "Flexibilidad y Movilidad",
+    "description": "Sesión de yoga y estiramientos para mejorar rango de movimiento.",
+    "createdAt": "2025-11-10T06:00:00",
+    "updatedAt": "2025-11-10T06:00:00",
+    "isPredefined": false,
+    "originalRoutineId": null,
+    "urlImg": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800",
+    "startDate": "2025-11-10T06:00:00",
+    "createdBy": {
+      "userId": "user_laura",
+      "name": "Laura García"
+    },
+    "exercises": [
+      {
+        "exerciseId": "yoga_1",
+        "name": "Yoga Básico",
+        "sets": 1,
+        "reps": 1,
+        "duration": 1200
+      },
+      {
+        "exerciseId": "stretching_1",
+        "name": "Full Body Stretching",
+        "sets": 2,
+        "reps": 1,
+        "duration": 900
+      }
+    ],
+    "isCertified": false,
+    "isActive": true
+  },
+  {
+    "id": "routine_hiit_1",
+    "name": "HIIT - Alta Intensidad",
+    "description": "Entrenamiento de intervalos de alta intensidad para resultados rápidos.",
+    "createdAt": "2025-11-12T17:00:00",
+    "updatedAt": "2025-11-12T17:00:00",
+    "isPredefined": true,
+    "originalRoutineId": null,
+    "urlImg": "https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=800",
+    "startDate": "2025-11-12T17:00:00",
+    "createdBy": {
+      "userId": "trainer_juan",
+      "name": "Juan Pérez"
+    },
+    "exercises": [
+      {
+        "exerciseId": "burpees_1",
+        "name": "Burpees",
+        "sets": 5,
+        "reps": 10,
+        "duration": 300
+      },
+      {
+        "exerciseId": "pushup_1",
+        "name": "Push Ups",
+        "sets": 5,
+        "reps": 15,
+        "duration": 450
+      },
+      {
+        "exerciseId": "squats_1",
+        "name": "Squats",
+        "sets": 5,
+        "reps": 20,
+        "duration": 600
+      },
+      {
+        "exerciseId": "plank_1",
+        "name": "Plank",
+        "sets": 3,
+        "reps": 1,
+        "duration": 180
+      }
+    ],
+    "isCertified": true,
+    "isActive": true
+  },
+  {
+    "id": "routine_upper_body_1",
+    "name": "Tren Superior Completo",
+    "description": "Rutina enfocada en desarrollo de brazos, pecho, espalda y hombros.",
+    "createdAt": "2025-11-07T19:00:00",
+    "updatedAt": "2025-11-07T19:00:00",
+    "isPredefined": false,
+    "originalRoutineId": null,
+    "urlImg": "https://images.unsplash.com/photo-1593476087123-36d1de271f08?w=800",
+    "startDate": "2025-11-07T19:00:00",
+    "createdBy": {
+      "userId": "user_carlos",
+      "name": "Carlos Mendoza"
+    },
+    "exercises": [
+      {
+        "exerciseId": "pushup_1",
+        "name": "Push Ups",
+        "sets": 4,
+        "reps": 12,
+        "duration": 480
+      },
+      {
+        "exerciseId": "pullups_1",
+        "name": "Pull Ups",
+        "sets": 4,
+        "reps": 8,
+        "duration": 540
+      },
+      {
+        "exerciseId": "plank_1",
+        "name": "Plank",
+        "sets": 3,
+        "reps": 1,
+        "duration": 180
+      }
+    ],
+    "isCertified": false,
     "isActive": true
   }
 ]

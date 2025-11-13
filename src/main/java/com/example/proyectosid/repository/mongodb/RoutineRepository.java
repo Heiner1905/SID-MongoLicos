@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -51,4 +52,7 @@ public interface RoutineRepository extends MongoRepository<Routine, String> {
     List<Routine> findAllRoutinesByUserId(String userId);
 
     List<Routine> findAll();
+
+    @Query(value = "{ 'createdBy.userId': ?0, 'createdAt': { $gte: ?1, $lte: ?2 } }", count = true)
+    Long countRoutinesCreatedByUserInMonth(String userId, LocalDateTime startDate, LocalDateTime endDate);
 }

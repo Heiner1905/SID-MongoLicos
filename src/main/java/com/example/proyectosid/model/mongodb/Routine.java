@@ -29,6 +29,9 @@ public class Routine {
     // Si esta rutina fue adoptada de una plantilla, aquí va el ID de la original
     private String originalRoutineId;
 
+    private String urlImg;
+    private LocalDateTime startDate;
+
     private CreatedBy createdBy;
     private List<RoutineExercise> exercises;
     private Boolean isCertified;

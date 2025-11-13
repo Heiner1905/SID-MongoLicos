@@ -27,4 +27,10 @@ public interface UserStatisticsRepository extends JpaRepository<UserStatistics, 
     @Query("SELECT u FROM UserStatistics u WHERE u.year = :year AND u.month = :month " +
             "ORDER BY u.progressLogsCount DESC")
     List<UserStatistics> findTopActiveUsers(@Param("year") Integer year, @Param("month") Integer month);
+
+    @Query(value = "SELECT * FROM user_statistics " +
+            "WHERE year = ?1 AND month = ?2 " +
+            "ORDER BY (routines_started + progress_logs_count) DESC " +
+            "LIMIT ?3", nativeQuery = true)
+    List<UserStatistics> findTopUsersByMonth(Integer year, Integer month, int limit);
 }

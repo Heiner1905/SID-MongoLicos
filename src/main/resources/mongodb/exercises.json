@@ -2,9 +2,10 @@
   {
     "id": "pushup_1",
     "name": "Push Ups",
-    "description": "Flexiones de pecho para fuerza superior.",
+    "description": "Flexiones de pecho para desarrollar fuerza superior y resistencia muscular.",
     "type": "fuerza",
     "createdAt": "2025-11-10T12:00:00",
+    "urlImg": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800",
     "duration": 5,
     "difficulty": 3,
     "videos": ["https://www.youtube.com/watch?v=IODxDxX7oi4"],
@@ -17,9 +18,10 @@
   {
     "id": "running_1",
     "name": "Running",
-    "description": "Trote ligero para mejorar resistencia.",
+    "description": "Trote ligero para mejorar resistencia cardiovascular y quemar calorías.",
     "type": "cardio",
     "createdAt": "2025-11-09T10:30:00",
+    "urlImg": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800",
     "duration": 30,
     "difficulty": 2,
     "videos": ["https://www.youtube.com/watch?v=Hv4A7iYJQ-4"],
@@ -28,5 +30,133 @@
       "name": "Juan Pérez"
     },
     "isPredefined": true
+  },
+  {
+    "id": "squats_1",
+    "name": "Squats",
+    "description": "Sentadillas para fortalecer piernas, glúteos y core.",
+    "type": "fuerza",
+    "createdAt": "2025-11-11T14:00:00",
+    "urlImg": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800",
+    "duration": 10,
+    "difficulty": 3,
+    "videos": ["https://www.youtube.com/watch?v=aclHkVaku9U"],
+    "createdBy": {
+      "userId": "user_carlos",
+      "name": "Carlos Mendoza"
+    },
+    "isPredefined": false
+  },
+  {
+    "id": "plank_1",
+    "name": "Plank",
+    "description": "Plancha isométrica para fortalecer abdomen y estabilidad del core.",
+    "type": "fuerza",
+    "createdAt": "2025-11-11T15:00:00",
+    "urlImg": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800",
+    "duration": 3,
+    "difficulty": 2,
+    "videos": ["https://www.youtube.com/watch?v=pSHjTRCQxIw"],
+    "createdBy": {
+      "userId": "user_carlos",
+      "name": "Carlos Mendoza"
+    },
+    "isPredefined": false
+  },
+  {
+    "id": "burpees_1",
+    "name": "Burpees",
+    "description": "Ejercicio de cuerpo completo que combina fuerza y cardio.",
+    "type": "cardio",
+    "createdAt": "2025-11-12T09:00:00",
+    "urlImg": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800",
+    "duration": 5,
+    "difficulty": 4,
+    "videos": ["https://www.youtube.com/watch?v=dZgVxmf6jkA"],
+    "createdBy": {
+      "userId": "user_laura",
+      "name": "Laura García"
+    },
+    "isPredefined": false
+  },
+  {
+    "id": "yoga_1",
+    "name": "Yoga Básico",
+    "description": "Secuencia de posturas de yoga para mejorar flexibilidad y reducir estrés.",
+    "type": "movilidad",
+    "createdAt": "2025-11-12T10:00:00",
+    "urlImg": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800",
+    "duration": 20,
+    "difficulty": 1,
+    "videos": ["https://www.youtube.com/watch?v=v7AYKMP6rOE"],
+    "createdBy": {
+      "userId": "user_laura",
+      "name": "Laura García"
+    },
+    "isPredefined": false
+  },
+  {
+    "id": "deadlift_1",
+    "name": "Deadlift",
+    "description": "Peso muerto para desarrollar fuerza en espalda baja, glúteos y piernas.",
+    "type": "fuerza",
+    "createdAt": "2025-11-10T13:00:00",
+    "urlImg": "https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?w=800",
+    "duration": 8,
+    "difficulty": 4,
+    "videos": ["https://www.youtube.com/watch?v=op9kVnSso6Q"],
+    "createdBy": {
+      "userId": "trainer_juan",
+      "name": "Juan Pérez"
+    },
+    "isPredefined": true
+  },
+  {
+    "id": "cycling_1",
+    "name": "Cycling",
+    "description": "Ciclismo estacionario para mejorar resistencia cardiovascular.",
+    "type": "cardio",
+    "createdAt": "2025-11-10T14:00:00",
+    "urlImg": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800",
+    "duration": 25,
+    "difficulty": 2,
+    "videos": ["https://www.youtube.com/watch?v=M5nXDLg-Gvg"],
+    "createdBy": {
+      "userId": "trainer_juan",
+      "name": "Juan Pérez"
+    },
+    "isPredefined": true
+  },
+  {
+    "id": "pullups_1",
+    "name": "Pull Ups",
+    "description": "Dominadas para fortalecer espalda, bíceps y antebrazos.",
+    "type": "fuerza",
+    "createdAt": "2025-11-11T16:00:00",
+    "urlImg": "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=800",
+    "duration": 6,
+    "difficulty": 5,
+    "videos": ["https://www.youtube.com/watch?v=eGo4IYlbE5g"],
+    "createdBy": {
+      "userId": "user_carlos",
+      "name": "Carlos Mendoza"
+    },
+    "isPredefined": false
+  },
+  {
+    "id": "stretching_1",
+    "name": "Full Body Stretching",
+    "description": "Rutina completa de estiramientos para todo el cuerpo.",
+    "type": "movilidad",
+    "createdAt": "2025-11-12T11:00:00",
+    "urlImg": "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=800",
+    "duration": 15,
+    "difficulty": 1,
+    "videos": ["https://www.youtube.com/watch?v=g_tea8ZNk5A"],
+    "createdBy": {
+      "userId": "user_laura",
+      "name": "Laura García"
+    },
+    "isPredefined": false
   }
 ]

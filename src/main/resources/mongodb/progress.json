@@ -1,22 +1,146 @@
 [
   {
+    "id": "progress_1",
     "userId": "user_carlos",
-    "routineId": "rutina_basica_1",
-    "createdAt": "2025-11-08T10:00:00",
-    "completedAt": "2025-11-08T10:30:00",
+    "routineId": "routine_beginner_1",
+    "createdAt": "2025-11-02T08:15:00",
+    "completedAt": "2025-11-02T09:00:00",
     "exercise": {
       "exerciseId": "pushup_1",
       "name": "Push Ups",
-      "type": "fuerza"
+      "type": "fuerza",
+      "duration": 300,
+      "difficulty": 3,
+      "sets": 3,
+      "reps": 10
     },
     "metrics": {
-      "reps": 36,
+      "reps": 30,
       "sets": 3,
       "weight": 0.0,
       "time": 300,
       "distance": 0.0,
-      "effortLevel": 7
+      "effortLevel": 6
+    }
+  },
+  {
+    "id": "progress_2",
+    "userId": "user_carlos",
+    "routineId": "routine_beginner_1",
+    "createdAt": "2025-11-02T09:05:00",
+    "completedAt": "2025-11-02T09:30:00",
+    "exercise": {
+      "exerciseId": "squats_1",
+      "name": "Squats",
+      "type": "fuerza",
+      "duration": 450,
+      "difficulty": 3,
+      "sets": 3,
+      "reps": 15
     },
-    "notes": "Buen esfuerzo"
+    "metrics": {
+      "reps": 45,
+      "sets": 3,
+      "weight": 0.0,
+      "time": 450,
+      "distance": 0.0,
+      "effortLevel": 7
+    }
+  },
+  {
+    "id": "progress_3",
+    "userId": "user_carlos",
+    "routineId": "routine_beginner_1",
+    "createdAt": "2025-11-02T09:35:00",
+    "completedAt": "2025-11-02T09:50:00",
+    "exercise": {
+      "exerciseId": "plank_1",
+      "name": "Plank",
+      "type": "fuerza",
+      "duration": 180,
+      "difficulty": 2,
+      "sets": 3,
+      "reps": 1
+    },
+    "metrics": {
+      "reps": 3,
+      "sets": 3,
+      "weight": 0.0,
+      "time": 180,
+      "distance": 0.0,
+      "effortLevel": 8
+    }
+  },
+  {
+    "id": "progress_4",
+    "userId": "user_carlos",
+    "routineId": "routine_strength_1",
+    "createdAt": "2025-11-09T18:30:00",
+    "completedAt": "2025-11-09T19:45:00",
+    "exercise": {
+      "exerciseId": "deadlift_1",
+      "name": "Deadlift",
+      "type": "fuerza",
+      "duration": 480,
+      "difficulty": 4,
+      "sets": 4,
+      "reps": 8
+    },
+    "metrics": {
+      "reps": 32,
+      "sets": 4,
+      "weight": 60.0,
+      "time": 480,
+      "distance": 0.0,
+      "effortLevel": 9
+    }
+  },
+  {
+    "id": "progress_5",
+    "userId": "user_laura",
+    "routineId": "routine_flexibility_1",
+    "createdAt": "2025-11-11T06:15:00",
+    "completedAt": "2025-11-11T06:40:00",
+    "exercise": {
+      "exerciseId": "yoga_1",
+      "name": "Yoga Básico",
+      "type": "movilidad",
+      "duration": 1200,
+      "difficulty": 1,
+      "sets": 1,
+      "reps": 1
+    },
+    "metrics": {
+      "reps": 1,
+      "sets": 1,
+      "weight": 0.0,
+      "time": 1200,
+      "distance": 0.0,
+      "effortLevel": 5
+    }
+  },
+  {
+    "id": "progress_6",
+    "userId": "user_laura",
+    "routineId": "routine_cardio_1",
+    "createdAt": "2025-11-06T07:30:00",
+    "completedAt": "2025-11-06T08:30:00",
+    "exercise": {
+      "exerciseId": "running_1",
+      "name": "Running",
+      "type": "cardio",
+      "duration": 1800,
+      "difficulty": 2,
+      "sets": 1,
+      "reps": 1
+    },
+    "metrics": {
+      "reps": 1,
+      "sets": 1,
+      "weight": 0.0,
+      "time": 1800,
+      "distance": 5.2,
+      "effortLevel": 7
+    }
   }
 ]

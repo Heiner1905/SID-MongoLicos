@@ -1,10 +1,47 @@
 [
   {
+    "id": "rec_1",
     "userId": "user_carlos",
     "trainerId": "trainer_juan",
-    "routineId": "rutina_basica_1",
-    "message": "Excelente progreso, intenta subir la dificultad la próxima semana 💪",
-    "createdAt": "2025-11-09T10:30:00",
-    "isRead": false
+    "routineId": "routine_beginner_1",
+    "message": "Excelente progreso en tu primera semana 💪 Intenta aumentar las repeticiones en un 10% la próxima sesión.",
+    "isRead": false,
+    "createdAt": "2025-11-03T10:30:00"
+  },
+  {
+    "id": "rec_2",
+    "userId": "user_carlos",
+    "trainerId": "trainer_juan",
+    "routineId": "routine_strength_1",
+    "message": "Tu técnica en deadlift es muy buena. Considera agregar 5kg más en las próximas 2 semanas.",
+    "isRead": false,
+    "createdAt": "2025-11-10T09:00:00"
+  },
+  {
+    "id": "rec_3",
+    "userId": "user_carlos",
+    "trainerId": "trainer_juan",
+    "routineId": "routine_upper_body_1",
+    "message": "Gran mejora en pull ups! Sigue así y llegarás a 10 reps por serie pronto 🎯",
+    "isRead": true,
+    "createdAt": "2025-11-09T08:15:00"
+  },
+  {
+    "id": "rec_4",
+    "userId": "user_laura",
+    "trainerId": "trainer_juan",
+    "routineId": "routine_flexibility_1",
+    "message": "Tu flexibilidad ha mejorado notablemente. Intenta hacer esta rutina 3 veces por semana 🧘‍♀️",
+    "isRead": false,
+    "createdAt": "2025-11-11T12:00:00"
+  },
+  {
+    "id": "rec_5",
+    "userId": "user_laura",
+    "trainerId": "trainer_juan",
+    "routineId": "routine_cardio_1",
+    "message": "Excelente resistencia en el running! Intenta incrementar la distancia a 6km la próxima vez 🏃‍♀️",
+    "isRead": true,
+    "createdAt": "2025-11-07T09:30:00"
   }
 ]

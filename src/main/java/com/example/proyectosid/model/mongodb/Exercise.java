@@ -23,6 +23,7 @@ public class Exercise {
     private String description;
     private String type;           // "cardio", "fuerza", "movilidad"
     private LocalDateTime createdAt;
+    private String urlImg;
     private Integer duration;      // minutos
     private Integer difficulty;    // 1-5
     private List<String> videos;   // URLs

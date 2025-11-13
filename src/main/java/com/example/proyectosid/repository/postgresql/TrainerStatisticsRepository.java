@@ -27,4 +27,10 @@ public interface TrainerStatisticsRepository extends JpaRepository<TrainerStatis
     @Query("SELECT t FROM TrainerStatistics t WHERE t.year = :year AND t.month = :month " +
             "ORDER BY t.recommendationsCount DESC")
     List<TrainerStatistics> findTopActiveTrainers(@Param("year") Integer year, @Param("month") Integer month);
+
+    @Query(value = "SELECT * FROM trainer_statistics " +
+            "WHERE year = ?1 AND month = ?2 " +
+            "ORDER BY (new_assignments_count + recommendations_count) DESC " +
+            "LIMIT ?3", nativeQuery = true)
+    List<TrainerStatistics> findTopTrainersByMonth(Integer year, Integer month, int limit);
 }
