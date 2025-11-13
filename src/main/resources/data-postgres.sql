@@ -38,10 +38,10 @@ VALUES
 -- ==============================
 INSERT INTO users (username, password_hash, role, student_id, employee_id, is_active, created_at)
 VALUES
-    ('trainer_juan', '$2a$10$N9qo8uLOickgx2ZMRZoMye4IjHnLJ7JZP/k6gZ2sMQnFy3hY2V7R6', 'trainer', NULL, 1, TRUE, NOW()),
-    ('admin_maria', '$2a$10$N9qo8uLOickgx2ZMRZoMye4IjHnLJ7JZP/k6gZ2sMQnFy3hY2V7R6', 'admin', NULL, 2, TRUE, NOW()),
-    ('user_carlos', '$2a$10$N9qo8uLOickgx2ZMRZoMye4IjHnLJ7JZP/k6gZ2sMQnFy3hY2V7R6', 'user', 'A001', NULL, TRUE, NOW()),
-    ('user_laura', '$2a$10$N9qo8uLOickgx2ZMRZoMye4IjHnLJ7JZP/k6gZ2sMQnFy3hY2V7R6', 'user', 'A002', NULL, TRUE, NOW());
+    ('trainer_juan', '$2a$10$hDPIAj7buCC.7/4ZlW2hGuJTenmZxzgEpmhsFo323cFn2PDyoKbPi', 'trainer', NULL, 1, TRUE, NOW()),
+    ('admin_maria', '$2a$10$hDPIAj7buCC.7/4ZlW2hGuJTenmZxzgEpmhsFo323cFn2PDyoKbPi', 'admin', NULL, 2, TRUE, NOW()),
+    ('user_carlos', '$2a$10$hDPIAj7buCC.7/4ZlW2hGuJTenmZxzgEpmhsFo323cFn2PDyoKbPi', 'user', 'A001', NULL, TRUE, NOW()),
+    ('user_laura', '$2a$10$hDPIAj7buCC.7/4ZlW2hGuJTenmZxzgEpmhsFo323cFn2PDyoKbPi', 'user', 'A002', NULL, TRUE, NOW());
 
 -- ==============================
 -- TRAINER STATISTICS

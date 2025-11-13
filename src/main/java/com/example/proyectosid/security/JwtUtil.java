@@ -30,6 +30,14 @@ public class JwtUtil {
         return extractClaim(token, Claims::getSubject);
     }
 
+    public String extractUserId(String token) {
+        return extractClaim(token, claims -> claims.get("userId", String.class));
+    }
+
+    public String extractRole(String token) {
+        return extractClaim(token, claims -> claims.get("role", String.class));
+    }
+
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
@@ -40,30 +48,32 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser()  // ← CAMBIADO: parser() en lugar de parserBuilder()
-                .verifyWith(getSigningKey())  // ← CAMBIADO: verifyWith() en lugar de setSigningKey()
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
                 .build()
-                .parseSignedClaims(token)  // ← CAMBIADO: parseSignedClaims() en lugar de parseClaimsJws()
-                .getPayload();  // ← CAMBIADO: getPayload() en lugar de getBody()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(String username, String role) {
+    // ✅ NUEVO: Genera token con username, role y userId
+    public String generateToken(String username, String role, String userId) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
+        claims.put("userId", userId);  // ← ID del estudiante o empleado
         return createToken(claims, username);
     }
 
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
-                .claims(claims)  // ← CAMBIADO: claims() en lugar de setClaims()
-                .subject(subject)  // ← CAMBIADO: subject() en lugar de setSubject()
-                .issuedAt(new Date(System.currentTimeMillis()))  // ← CAMBIADO: issuedAt() en lugar de setIssuedAt()
-                .expiration(new Date(System.currentTimeMillis() + expiration))  // ← CAMBIADO: expiration() en lugar de setExpiration()
-                .signWith(getSigningKey())  // ← CAMBIADO: ya no necesita especificar el algoritmo
+                .claims(claims)
+                .subject(subject)
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getSigningKey())
                 .compact();
     }
 
