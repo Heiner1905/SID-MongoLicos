@@ -19,12 +19,10 @@ VALUES
 -- ==============================
 -- EMPLOYEES (Entrenadores / Admins)
 -- ==============================
--- Nota: RETURNING id para saber qué ID se asignó
 INSERT INTO employees (first_name, last_name, email, contract_type, employee_type, faculty_code, campus_code, birth_place_code)
 VALUES
     ('Juan', 'Pérez', 'juan.perez@icesi.edu.co', 'Full-Time', 'trainer', 101, 2, 76001),
     ('María', 'Rodríguez', 'maria.rod@icesi.edu.co', 'Part-Time', 'admin', 102, 3, 76002);
--- Los IDs serán 1 y 2 porque hicimos RESTART IDENTITY
 
 -- ==============================
 -- STUDENTS (Usuarios normales)
@@ -36,13 +34,14 @@ VALUES
 
 -- ==============================
 -- USERS (Login)
+-- Contraseña para TODOS: password123
 -- ==============================
 INSERT INTO users (username, password_hash, role, student_id, employee_id, is_active, created_at)
 VALUES
-    ('trainer_juan', '$2a$10$abcdefghijklmnopqrstuv', 'trainer', NULL, 1, TRUE, NOW()),
-    ('admin_maria', '$2a$10$abcdefghijklmnopqrstuv', 'admin', NULL, 2, TRUE, NOW()),
-    ('user_carlos', '$2a$10$abcdefghijklmnopqrstuv', 'user', 'A001', NULL, TRUE, NOW()),
-    ('user_laura', '$2a$10$abcdefghijklmnopqrstuv', 'user', 'A002', NULL, TRUE, NOW());
+    ('trainer_juan', '$2a$10$N9qo8uLOickgx2ZMRZoMye4IjHnLJ7JZP/k6gZ2sMQnFy3hY2V7R6', 'trainer', NULL, 1, TRUE, NOW()),
+    ('admin_maria', '$2a$10$N9qo8uLOickgx2ZMRZoMye4IjHnLJ7JZP/k6gZ2sMQnFy3hY2V7R6', 'admin', NULL, 2, TRUE, NOW()),
+    ('user_carlos', '$2a$10$N9qo8uLOickgx2ZMRZoMye4IjHnLJ7JZP/k6gZ2sMQnFy3hY2V7R6', 'user', 'A001', NULL, TRUE, NOW()),
+    ('user_laura', '$2a$10$N9qo8uLOickgx2ZMRZoMye4IjHnLJ7JZP/k6gZ2sMQnFy3hY2V7R6', 'user', 'A002', NULL, TRUE, NOW());
 
 -- ==============================
 -- TRAINER STATISTICS
