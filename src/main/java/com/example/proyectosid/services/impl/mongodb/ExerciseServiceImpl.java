@@ -69,7 +69,7 @@ public class ExerciseServiceImpl implements IExerciseService {
     @Override
     public List<ExerciseResponseDTO> getComplementaryExercises(String userId) {
         // 1. Obtener rutinas activas del usuario
-        List<Routine> activeRoutines = routineRepository.findActiveRoutinesByUser(userId);
+        List<Routine> activeRoutines = routineRepository.findActiveRoutinesByUserId(userId);
 
         // 2. Extraer IDs de ejercicios que ya tiene
         Set<String> userExerciseIds = activeRoutines.stream()
@@ -86,6 +86,7 @@ public class ExerciseServiceImpl implements IExerciseService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public List<ExerciseResponseDTO> getAllPredefinedExercises() {
@@ -110,8 +111,11 @@ public class ExerciseServiceImpl implements IExerciseService {
         dto.setDuration(exercise.getDuration());
         dto.setDifficulty(exercise.getDifficulty());
         dto.setVideos(exercise.getVideos());
-        dto.setCreatedByUsername(exercise.getCreatedBy().getUserId());
-        dto.setCreatedByName(exercise.getCreatedBy().getName());
+        // ✅ Protección contra null
+        if (exercise.getCreatedBy() != null) {
+            dto.setCreatedByUsername(exercise.getCreatedBy().getUserId());
+            dto.setCreatedByName(exercise.getCreatedBy().getName());
+        }
         dto.setIsPredefined(exercise.getIsPredefined());
         dto.setCreatedAt(exercise.getCreatedAt());
         return dto;

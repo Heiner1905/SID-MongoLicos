@@ -5,6 +5,7 @@ import com.example.proyectosid.services.mongodb.IRoutineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -99,4 +100,19 @@ public class RoutineController {
         routineService.deleteRoutine(id);
         return ResponseEntity.noContent().build();
     }
+
+    /**
+     * Adoptar una rutina predefinida
+     * POST /api/routines/{routineId}/adopt
+     */
+    @PostMapping("/{routineId}/adopt")
+    public ResponseEntity<Routine> adoptRoutine(
+            @PathVariable String routineId,
+            Authentication authentication) {
+
+        String username = authentication.getName();
+        Routine adopted = routineService.adoptRoutine(routineId, username);
+        return ResponseEntity.status(HttpStatus.CREATED).body(adopted);
+    }
+
 }

@@ -15,13 +15,6 @@ public interface RoutineRepository extends MongoRepository<Routine, String> {
     // Buscar rutinas predefinidas
     List<Routine> findByIsPredefined(Boolean isPredefined);
 
-    // Buscar rutinas activas de un usuario
-    @Query("{ 'createdBy.userId': ?0, 'isActive': true }")
-    List<Routine> findActiveRoutinesByUser(String userId);
-
-    // Buscar todas las rutinas de un usuario (activas e inactivas)
-    @Query("{ 'createdBy.userId': ?0 }")
-    List<Routine> findAllRoutinesByUser(String userId);
 
     // Buscar rutinas predefinidas certificadas
     @Query("{ 'isPredefined': true, 'isCertified': true }")
@@ -47,12 +40,17 @@ public interface RoutineRepository extends MongoRepository<Routine, String> {
     @Query("{ 'owners.userId': ?0 }")
     List<Routine> findRoutinesAdoptedByUser(String userId);
 
-    // O combinadas (ambas en una sola consulta)
-    @Query("{ '$or': [ { 'createdBy.userId': ?0 }, { 'owners.userId': ?0 } ] }")
-    List<Routine> findAllRoutinesByUserId(String userId);
+    // Eliminar los otros y dejar solo este
+    @Query("{ '$or': [ " +
+            "  { 'createdBy.userId': ?0, 'isActive': true }, " +
+            "  { 'adoptedBy': { $elemMatch: { 'userId': ?0, 'isActive': true } } } " +
+            "] }")
+    List<Routine> findActiveRoutinesByUserId(String userId);
+
 
     List<Routine> findAll();
 
     @Query(value = "{ 'createdBy.userId': ?0, 'createdAt': { $gte: ?1, $lte: ?2 } }", count = true)
     Long countRoutinesCreatedByUserInMonth(String userId, LocalDateTime startDate, LocalDateTime endDate);
+
 }

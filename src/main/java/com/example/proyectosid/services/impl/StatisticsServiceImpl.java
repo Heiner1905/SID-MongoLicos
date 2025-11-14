@@ -5,7 +5,9 @@ import com.example.proyectosid.dto.UserStatisticsDTO;
 import com.example.proyectosid.model.postgresql.TrainerStatistics;
 import com.example.proyectosid.model.postgresql.User;
 import com.example.proyectosid.model.postgresql.UserStatistics;
+import com.example.proyectosid.repository.mongodb.AssignmentRepository;
 import com.example.proyectosid.repository.mongodb.ProgressRepository;
+import com.example.proyectosid.repository.mongodb.RecommendationRepository;
 import com.example.proyectosid.repository.mongodb.RoutineRepository;
 import com.example.proyectosid.repository.postgresql.TrainerStatisticsRepository;
 import com.example.proyectosid.repository.postgresql.UserRepository;
@@ -31,6 +33,8 @@ public class StatisticsServiceImpl implements IStatisticsService {
     private final UserRepository userRepository;
     private final RoutineRepository routineRepository;
     private final ProgressRepository progressRepository;
+    private final AssignmentRepository assignmentRepository;
+    private final RecommendationRepository recommendationRepository;
 
     @Override
     public List<UserStatisticsDTO> getUserStatistics(String userId) {
@@ -141,23 +145,23 @@ public class StatisticsServiceImpl implements IStatisticsService {
     }
 
     private void calculateTrainerStatistics(int year, int month) {
-        // Obtener rango de fechas del mes
         YearMonth yearMonth = YearMonth.of(year, month);
         LocalDateTime startOfMonth = yearMonth.atDay(1).atStartOfDay();
         LocalDateTime endOfMonth = yearMonth.atEndOfMonth().atTime(23, 59, 59);
 
-        // Obtener todos los entrenadores
         List<User> trainers = userRepository.findByRole("trainer");
 
         for (User trainer : trainers) {
             String trainerId = trainer.getUsername();
 
-            // TODO: Implementar conteo de asignaciones y recomendaciones
-            // Por ahora, valores de ejemplo
-            int newAssignments = 0;
-            int recommendations = 0;
+            // ✅ CORREGIR: Contar asignaciones creadas en el mes
+            Long newAssignments = assignmentRepository.countAssignmentsByTrainerInPeriod(
+                    trainerId, startOfMonth, endOfMonth);
 
-            // Buscar o crear estadística
+            // ✅ CORREGIR: Contar recomendaciones enviadas en el mes
+            Long recommendations = recommendationRepository.countRecommendationsByTrainerInPeriod(
+                    trainerId, startOfMonth, endOfMonth);
+
             TrainerStatistics stats = trainerStatisticsRepository
                     .findByTrainerIdAndYearAndMonth(trainerId, year, month)
                     .orElse(new TrainerStatistics());
@@ -165,8 +169,8 @@ public class StatisticsServiceImpl implements IStatisticsService {
             stats.setTrainerId(trainerId);
             stats.setYear(year);
             stats.setMonth(month);
-            stats.setNewAssignmentsCount(newAssignments);
-            stats.setRecommendationsCount(recommendations);
+            stats.setNewAssignmentsCount(newAssignments.intValue());
+            stats.setRecommendationsCount(recommendations.intValue());
             stats.setUpdatedAt(LocalDateTime.now());
 
             if (stats.getCreatedAt() == null) {
@@ -179,6 +183,7 @@ public class StatisticsServiceImpl implements IStatisticsService {
                     trainerId, newAssignments, recommendations);
         }
     }
+
 
     private UserStatisticsDTO mapUserStatsToDTO(UserStatistics stats) {
         return UserStatisticsDTO.builder()

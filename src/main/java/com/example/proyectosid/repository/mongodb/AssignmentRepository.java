@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,5 +33,10 @@ public interface AssignmentRepository extends MongoRepository<Assignment, String
     // Verificar si un usuario tiene asignación activa
     @Query(value = "{ 'userId': ?0, 'isActive': true }", exists = true)
     boolean hasActiveAssignment(String userId);
+
+    // En AssignmentRepository.java
+    @Query(value = "{ 'trainerId': ?0, 'assignedAt': { $gte: ?1, $lte: ?2 } }", count = true)
+    Long countAssignmentsByTrainerInPeriod(String trainerId, LocalDateTime start, LocalDateTime end);
+
 
 }

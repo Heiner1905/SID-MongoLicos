@@ -1,12 +1,17 @@
 package com.example.proyectosid.services.impl.mongodb;
 
+import com.example.proyectosid.model.mongodb.CreatedBy;
 import com.example.proyectosid.model.mongodb.Routine;
+import com.example.proyectosid.model.mongodb.RoutineAdoptedBy;
+import com.example.proyectosid.model.postgresql.User;
 import com.example.proyectosid.repository.mongodb.RoutineRepository;
+import com.example.proyectosid.repository.postgresql.UserRepository;
 import com.example.proyectosid.services.mongodb.IRoutineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,10 +19,11 @@ import java.util.List;
 public class RoutineServiceImpl implements IRoutineService {
 
     private final RoutineRepository routineRepository;
+    private final UserRepository userRepository;
 
     @Override
     public List<Routine> getRoutinesByUserId(String userId) {
-        return routineRepository.findAllRoutinesByUserId(userId);
+        return routineRepository.findActiveRoutinesByUserId(userId);
     }
 
     @Override
@@ -90,5 +96,65 @@ public class RoutineServiceImpl implements IRoutineService {
     public void deleteRoutine(String id) {
         Routine routine = getRoutineById(id);
         routineRepository.delete(routine);
+    }
+
+    @Override
+    public Routine adoptRoutine(String templateId, String username) {
+        // Obtener plantilla original
+        Routine template = getRoutineById(templateId);
+
+        if (!template.getIsPredefined() || !template.getIsCertified()) {
+            throw new RuntimeException("Solo se pueden adoptar rutinas certificadas");
+        }
+
+        List<Routine> userRoutines = routineRepository.findActiveRoutinesByUserId(username);
+        boolean alreadyAdopted = userRoutines.stream()
+                .anyMatch(r -> templateId.equals(r.getOriginalRoutineId()));
+
+        if (alreadyAdopted) {
+            throw new RuntimeException("Ya has adoptado esta rutina");
+        }
+
+        // Obtener datos del usuario
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Crear nueva rutina para el usuario
+        Routine newRoutine = new Routine();
+        newRoutine.setName(template.getName());
+        newRoutine.setDescription(template.getDescription());
+        newRoutine.setExercises(template.getExercises());
+        newRoutine.setOriginalRoutineId(templateId);
+        newRoutine.setIsPredefined(false); // Ya no es plantilla
+        newRoutine.setIsCertified(false);
+        newRoutine.setIsActive(true);
+        newRoutine.setUrlImg(template.getUrlImg());
+        newRoutine.setCreatedAt(LocalDateTime.now());
+        newRoutine.setUpdatedAt(LocalDateTime.now());
+
+        // CreatedBy del usuario que adopta
+        CreatedBy createdBy = new CreatedBy();
+        createdBy.setUserId(username);
+        if (user.getStudent() != null) {
+            createdBy.setName(user.getStudent().getFirstName() + " " + user.getStudent().getLastName());
+        } else if (user.getEmployee() != null) {
+            createdBy.setName(user.getEmployee().getFirstName() + " " + user.getEmployee().getLastName());
+        }
+        newRoutine.setCreatedBy(createdBy);
+
+        // ✅ Agregar a adoptedBy de la plantilla original
+        RoutineAdoptedBy adoptedBy = new RoutineAdoptedBy();
+        adoptedBy.setUserId(username);
+        adoptedBy.setAdoptedAt(LocalDateTime.now());
+        adoptedBy.setIsActive(true);
+        adoptedBy.setIsModified(false);
+
+        if (template.getAdoptedBy() == null) {
+            template.setAdoptedBy(new ArrayList<>());
+        }
+        template.getAdoptedBy().add(adoptedBy);
+        routineRepository.save(template); // Actualizar plantilla
+
+        return routineRepository.save(newRoutine);
     }
 }

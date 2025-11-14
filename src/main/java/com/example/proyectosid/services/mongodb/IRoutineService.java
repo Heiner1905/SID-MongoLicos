@@ -25,5 +25,6 @@ public interface IRoutineService {
 
     void deleteRoutine(String id);
 
+    Routine adoptRoutine(String templateId, String username);
 
 }

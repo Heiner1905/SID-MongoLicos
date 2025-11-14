@@ -23,6 +23,4 @@ public class Assignment {
     private LocalDateTime assignedAt;
     private LocalDateTime unassignedAt;  // null si sigue activo
     private Boolean isActive;
-    private String assignedBy;      // username de la persona que asignó
-    private LocalDateTime createdAt;
 }

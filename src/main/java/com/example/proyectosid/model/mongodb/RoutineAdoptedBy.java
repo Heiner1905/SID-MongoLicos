@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class RoutineAdoptedBy {
     private String userId;
-    private LocalDateTime date;
-    private boolean isModified;
+    private LocalDateTime adoptedAt;
+    private Boolean isActive; // Si el usuario sigue usando esta rutina
+    private Boolean isModified;
 }

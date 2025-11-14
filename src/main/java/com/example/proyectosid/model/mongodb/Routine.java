@@ -32,6 +32,9 @@ public class Routine {
     private String urlImg;
     private LocalDateTime startDate;
 
+    // ✅ NUEVO: Lista de usuarios que adoptaron esta rutina
+    private List<RoutineAdoptedBy> adoptedBy; // <-- AGREGAR ESTO
+
     private CreatedBy createdBy;
     private List<RoutineExercise> exercises;
     private Boolean isCertified;
