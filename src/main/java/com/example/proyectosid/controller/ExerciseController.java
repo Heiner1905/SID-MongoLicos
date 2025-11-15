@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,10 +22,11 @@ public class ExerciseController {
     private final IExerciseService exerciseService;
 
     /**
-     * 1. Crear ejercicio
+     * Crear ejercicio (cualquier usuario puede crear, pero solo trainers pueden crear predefinidos)
      * POST /api/exercises
      */
     @PostMapping
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ExerciseResponseDTO> createExercise(
             @Valid @RequestBody ExerciseCreateDTO dto,
             Authentication authentication) {
@@ -36,10 +38,11 @@ public class ExerciseController {
     }
 
     /**
-     * 2. Obtener ejercicios que NO tiene el usuario (complementarios)
+     * Obtener ejercicios complementarios
      * GET /api/exercises/complementary/{userId}
      */
     @GetMapping("/complementary/{userId}")
+    @PreAuthorize("hasAuthority('EXERCISE_READ')")
     public ResponseEntity<List<ExerciseResponseDTO>> getComplementaryExercises(
             @PathVariable String userId) {
 
@@ -52,6 +55,7 @@ public class ExerciseController {
      * GET /api/exercises/predefined
      */
     @GetMapping("/predefined")
+    @PreAuthorize("hasAuthority('EXERCISE_READ')")
     public ResponseEntity<List<ExerciseResponseDTO>> getPredefinedExercises() {
         List<ExerciseResponseDTO> exercises = exerciseService.getAllPredefinedExercises();
         return ResponseEntity.ok(exercises);
@@ -62,20 +66,29 @@ public class ExerciseController {
      * GET /api/exercises/{id}
      */
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('EXERCISE_READ')")
     public ResponseEntity<ExerciseResponseDTO> getExerciseById(@PathVariable String id) {
         ExerciseResponseDTO exercise = exerciseService.getExerciseById(id);
         return ResponseEntity.ok(exercise);
     }
 
-     // Obtener todos los ejercicios
+    /**
+     * Obtener todos los ejercicios
+     * GET /api/exercises/all
+     */
     @GetMapping("/all")
+    @PreAuthorize("hasAuthority('EXERCISE_READ')")
     public ResponseEntity<List<Exercise>> getAllExercises() {
         List<Exercise> exercises = exerciseService.findAll();
         return ResponseEntity.ok(exercises);
     }
 
-    // Obtener ejercicios creados por un usuario
+    /**
+     * Obtener ejercicios creados por un usuario
+     * GET /api/exercises/byUser/{userId}
+     */
     @GetMapping("/byUser/{userId}")
+    @PreAuthorize("hasAuthority('EXERCISE_READ')")
     public ResponseEntity<List<Exercise>> getExercisesByUser(@PathVariable String userId) {
         List<Exercise> exercises = exerciseService.getExercisesByUserId(userId);
         return ResponseEntity.ok(exercises);

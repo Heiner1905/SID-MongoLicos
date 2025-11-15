@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,36 +23,11 @@ public class ProgressController {
     private final IProgressService progressService;
 
     /**
-     * 4. Obtener progreso por rango de fecha y ejercicio
-     * GET /api/progress/filter
-     * Parámetros: userId, exerciseId (opcional), startDate, endDate
-     */
-    @GetMapping("/filter")
-    public ResponseEntity<List<ProgressResponseDTO>> getProgressByDateRangeAndExercise(
-            @RequestParam String userId,
-            @RequestParam(required = false) String exerciseId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
-
-        List<ProgressResponseDTO> progress;
-
-        if (exerciseId != null && !exerciseId.isEmpty()) {
-            // Filtrar por ejercicio específico y rango de fechas
-            progress = progressService.getProgressByExerciseAndDateRange(
-                    userId, exerciseId, startDate, endDate);
-        } else {
-            // Solo filtrar por rango de fechas
-            progress = progressService.getProgressByDateRange(userId, startDate, endDate);
-        }
-
-        return ResponseEntity.ok(progress);
-    }
-
-    /**
      * Registrar nuevo progreso
      * POST /api/progress
      */
     @PostMapping
+    @PreAuthorize("hasAuthority('PROGRESS_CREATE')")
     public ResponseEntity<ProgressResponseDTO> createProgress(
             @Valid @RequestBody ProgressCreateDTO dto,
             Authentication authentication) {
@@ -67,9 +43,8 @@ public class ProgressController {
      * GET /api/progress/user/{userId}
      */
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<ProgressResponseDTO>> getUserProgress(
-            @PathVariable String userId) {
-
+    @PreAuthorize("hasAuthority('PROGRESS_READ_OWN') or hasAuthority('STATISTICS_READ_ALL')")
+    public ResponseEntity<List<ProgressResponseDTO>> getUserProgress(@PathVariable String userId) {
         List<ProgressResponseDTO> progress = progressService.getUserProgress(userId);
         return ResponseEntity.ok(progress);
     }
@@ -79,6 +54,7 @@ public class ProgressController {
      * GET /api/progress/routine/{routineId}
      */
     @GetMapping("/routine/{routineId}")
+    @PreAuthorize("hasAuthority('PROGRESS_READ_OWN')")
     public ResponseEntity<List<ProgressResponseDTO>> getProgressByRoutine(
             @RequestParam String userId,
             @PathVariable String routineId) {
@@ -92,11 +68,36 @@ public class ProgressController {
      * GET /api/progress/recent
      */
     @GetMapping("/recent")
+    @PreAuthorize("hasAuthority('PROGRESS_READ_OWN')")
     public ResponseEntity<List<ProgressResponseDTO>> getRecentProgress(
             @RequestParam String userId,
             @RequestParam(defaultValue = "7") int days) {
 
         List<ProgressResponseDTO> progress = progressService.getRecentProgress(userId, days);
+        return ResponseEntity.ok(progress);
+    }
+
+    /**
+     * Obtener progreso por rango de fecha y ejercicio
+     * GET /api/progress/filter
+     */
+    @GetMapping("/filter")
+    @PreAuthorize("hasAuthority('PROGRESS_READ_OWN')")
+    public ResponseEntity<List<ProgressResponseDTO>> getProgressByDateRangeAndExercise(
+            @RequestParam String userId,
+            @RequestParam(required = false) String exerciseId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+
+        List<ProgressResponseDTO> progress;
+
+        if (exerciseId != null && !exerciseId.isEmpty()) {
+            progress = progressService.getProgressByExerciseAndDateRange(
+                    userId, exerciseId, startDate, endDate);
+        } else {
+            progress = progressService.getProgressByDateRange(userId, startDate, endDate);
+        }
+
         return ResponseEntity.ok(progress);
     }
 }

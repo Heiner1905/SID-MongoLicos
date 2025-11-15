@@ -5,6 +5,7 @@ import com.example.proyectosid.dto.UserStatisticsDTO;
 import com.example.proyectosid.services.IStatisticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class StatisticsController {
      * GET /api/statistics/users/{userId}
      */
     @GetMapping("/users/{userId}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<UserStatisticsDTO>> getUserStatistics(@PathVariable String userId) {
         List<UserStatisticsDTO> stats = statisticsService.getUserStatistics(userId);
         return ResponseEntity.ok(stats);
@@ -29,9 +31,10 @@ public class StatisticsController {
 
     /**
      * Obtener estadísticas de un usuario para un mes específico
-     * GET /api/statistics/users/{userId}?year=2025&month=11
+     * GET /api/statistics/users/{userId}/month?year=2025&month=11
      */
     @GetMapping("/users/{userId}/month")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<UserStatisticsDTO> getUserStatisticsForMonth(
             @PathVariable String userId,
             @RequestParam int year,
@@ -42,10 +45,11 @@ public class StatisticsController {
     }
 
     /**
-     * Obtener top usuarios más activos del mes
+     * Obtener top usuarios más activos del mes (solo trainers)
      * GET /api/statistics/users/top?year=2025&month=11&limit=10
      */
     @GetMapping("/users/top")
+    @PreAuthorize("hasAuthority('STATISTICS_READ_ALL')")
     public ResponseEntity<List<UserStatisticsDTO>> getTopUsers(
             @RequestParam int year,
             @RequestParam int month,
@@ -56,10 +60,11 @@ public class StatisticsController {
     }
 
     /**
-     * Obtener todas las estadísticas de un entrenador
+     * Obtener todas las estadísticas de un entrenador (solo trainers)
      * GET /api/statistics/trainers/{trainerId}
      */
     @GetMapping("/trainers/{trainerId}")
+    @PreAuthorize("hasAuthority('STATISTICS_READ_ALL')")
     public ResponseEntity<List<TrainerStatisticsDTO>> getTrainerStatistics(@PathVariable String trainerId) {
         List<TrainerStatisticsDTO> stats = statisticsService.getTrainerStatistics(trainerId);
         return ResponseEntity.ok(stats);
@@ -70,6 +75,7 @@ public class StatisticsController {
      * GET /api/statistics/trainers/{trainerId}/month?year=2025&month=11
      */
     @GetMapping("/trainers/{trainerId}/month")
+    @PreAuthorize("hasAuthority('STATISTICS_READ_ALL')")
     public ResponseEntity<TrainerStatisticsDTO> getTrainerStatisticsForMonth(
             @PathVariable String trainerId,
             @RequestParam int year,
@@ -80,10 +86,11 @@ public class StatisticsController {
     }
 
     /**
-     * Obtener top entrenadores más activos del mes
+     * Obtener top entrenadores más activos del mes (solo trainers)
      * GET /api/statistics/trainers/top?year=2025&month=11&limit=10
      */
     @GetMapping("/trainers/top")
+    @PreAuthorize("hasAuthority('STATISTICS_READ_ALL')")
     public ResponseEntity<List<TrainerStatisticsDTO>> getTopTrainers(
             @RequestParam int year,
             @RequestParam int month,
@@ -98,6 +105,7 @@ public class StatisticsController {
      * POST /api/statistics/calculate?year=2025&month=11
      */
     @PostMapping("/calculate")
+    @PreAuthorize("hasRole('TRAINER')")
     public ResponseEntity<String> calculateStatistics(
             @RequestParam int year,
             @RequestParam int month) {
@@ -111,6 +119,7 @@ public class StatisticsController {
      * POST /api/statistics/calculate/current
      */
     @PostMapping("/calculate/current")
+    @PreAuthorize("hasRole('TRAINER')")
     public ResponseEntity<String> calculateCurrentMonthStatistics() {
         statisticsService.calculateCurrentMonthStatistics();
         return ResponseEntity.ok("Estadísticas del mes actual calculadas");

@@ -5,6 +5,7 @@ import com.example.proyectosid.services.mongodb.IRoutineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class RoutineController {
      * GET /api/routines/user/{userId}
      */
     @GetMapping("/user/{userId}")
+    @PreAuthorize("hasAuthority('ROUTINE_READ')")
     public ResponseEntity<List<Routine>> getRoutinesByUser(@PathVariable String userId) {
         List<Routine> routines = routineService.getRoutinesByUserId(userId);
         return ResponseEntity.ok(routines);
@@ -33,6 +35,7 @@ public class RoutineController {
      * GET /api/routines/templates
      */
     @GetMapping("/templates")
+    @PreAuthorize("hasAuthority('ROUTINE_READ')")
     public ResponseEntity<List<Routine>> getCertifiedTemplates() {
         List<Routine> templates = routineService.getCertifiedTemplates();
         return ResponseEntity.ok(templates);
@@ -43,6 +46,7 @@ public class RoutineController {
      * GET /api/routines/all
      */
     @GetMapping("/all")
+    @PreAuthorize("hasAuthority('ROUTINE_READ')")
     public ResponseEntity<List<Routine>> getAllRoutines() {
         List<Routine> routines = routineService.findAll();
         return ResponseEntity.ok(routines);
@@ -53,6 +57,7 @@ public class RoutineController {
      * POST /api/routines
      */
     @PostMapping
+    @PreAuthorize("hasAuthority('ROUTINE_CREATE')")
     public ResponseEntity<Routine> createRoutine(@RequestBody Routine routine) {
         Routine created = routineService.createRoutine(routine);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
@@ -63,16 +68,18 @@ public class RoutineController {
      * GET /api/routines/{id}
      */
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROUTINE_READ')")
     public ResponseEntity<Routine> getRoutineById(@PathVariable String id) {
         Routine routine = routineService.getRoutineById(id);
         return ResponseEntity.ok(routine);
     }
 
     /**
-     * Actualizar rutina
+     * Actualizar rutina (solo el dueño)
      * PUT /api/routines/{id}
      */
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROUTINE_UPDATE_OWN')")
     public ResponseEntity<Routine> updateRoutine(
             @PathVariable String id,
             @RequestBody Routine routine) {
@@ -86,16 +93,18 @@ public class RoutineController {
      * PUT /api/routines/{id}/deactivate
      */
     @PutMapping("/{id}/deactivate")
+    @PreAuthorize("hasAuthority('ROUTINE_UPDATE_OWN')")
     public ResponseEntity<Routine> deactivateRoutine(@PathVariable String id) {
         Routine deactivated = routineService.deactivateRoutine(id);
         return ResponseEntity.ok(deactivated);
     }
 
     /**
-     * Eliminar rutina
+     * Eliminar rutina (solo el dueño)
      * DELETE /api/routines/{id}
      */
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROUTINE_DELETE_OWN')")
     public ResponseEntity<Void> deleteRoutine(@PathVariable String id) {
         routineService.deleteRoutine(id);
         return ResponseEntity.noContent().build();
@@ -106,6 +115,7 @@ public class RoutineController {
      * POST /api/routines/{routineId}/adopt
      */
     @PostMapping("/{routineId}/adopt")
+    @PreAuthorize("hasAuthority('ROUTINE_ADOPT')")
     public ResponseEntity<Routine> adoptRoutine(
             @PathVariable String routineId,
             Authentication authentication) {
@@ -114,5 +124,4 @@ public class RoutineController {
         Routine adopted = routineService.adoptRoutine(routineId, username);
         return ResponseEntity.status(HttpStatus.CREATED).body(adopted);
     }
-
 }

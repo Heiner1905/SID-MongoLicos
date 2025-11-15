@@ -1,10 +1,10 @@
-// controller/AssignmentController.java
 package com.example.proyectosid.controller;
 
 import com.example.proyectosid.model.mongodb.Assignment;
 import com.example.proyectosid.services.mongodb.IAssignmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,10 +18,11 @@ public class AssignmentController {
     private final IAssignmentService assignmentService;
 
     /**
-     * Asignar entrenador a usuario
+     * Asignar entrenador a usuario (solo trainers)
      * POST /api/assignments
      */
     @PostMapping
+    @PreAuthorize("hasAuthority('ASSIGNMENT_CREATE')")
     public ResponseEntity<Assignment> assignTrainer(
             @RequestParam String userId,
             @RequestParam String trainerId) {
@@ -35,26 +36,29 @@ public class AssignmentController {
      * GET /api/assignments/user/{userId}
      */
     @GetMapping("/user/{userId}")
+    @PreAuthorize("hasAuthority('ASSIGNMENT_READ')")
     public ResponseEntity<Assignment> getUserAssignment(@PathVariable String userId) {
         Assignment assignment = assignmentService.getActiveAssignment(userId);
         return ResponseEntity.ok(assignment);
     }
 
     /**
-     * Obtener todos los usuarios asignados a un entrenador
+     * Obtener todos los usuarios asignados a un entrenador (solo trainers)
      * GET /api/assignments/trainer/{trainerId}
      */
     @GetMapping("/trainer/{trainerId}")
+    @PreAuthorize("hasAuthority('ASSIGNMENT_READ')")
     public ResponseEntity<List<Assignment>> getTrainerUsers(@PathVariable String trainerId) {
         List<Assignment> users = assignmentService.getTrainerUsers(trainerId);
         return ResponseEntity.ok(users);
     }
 
     /**
-     * Desactivar asignación de un usuario
+     * Desactivar asignación de un usuario (solo trainers)
      * PUT /api/assignments/deactivate/{userId}
      */
     @PutMapping("/deactivate/{userId}")
+    @PreAuthorize("hasAuthority('ASSIGNMENT_CREATE')")
     public ResponseEntity<Assignment> deactivateAssignment(@PathVariable String userId) {
         Assignment assignment = assignmentService.deactivateAssignment(userId);
         return ResponseEntity.ok(assignment);
@@ -65,6 +69,7 @@ public class AssignmentController {
      * GET /api/assignments/trainer/{trainerId}/count
      */
     @GetMapping("/trainer/{trainerId}/count")
+    @PreAuthorize("hasAuthority('ASSIGNMENT_READ')")
     public ResponseEntity<Long> countActiveUsers(@PathVariable String trainerId) {
         Long count = assignmentService.countActiveUsersByTrainer(trainerId);
         return ResponseEntity.ok(count);
