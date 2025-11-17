@@ -13,6 +13,7 @@ public class RoutineResponseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Boolean isPredefined;
+    private String urlImg;
     private String originalRoutineId;
     private String createdByUsername;
     private String createdByName;

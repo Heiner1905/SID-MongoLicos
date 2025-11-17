@@ -53,4 +53,13 @@ public interface RoutineRepository extends MongoRepository<Routine, String> {
     @Query(value = "{ 'createdBy.userId': ?0, 'createdAt': { $gte: ?1, $lte: ?2 } }", count = true)
     Long countRoutinesCreatedByUserInMonth(String userId, LocalDateTime startDate, LocalDateTime endDate);
 
+    /**
+     * Obtener rutinas creadas por un usuario
+     */
+    List<Routine> findByCreatedByUserId(String userId);
+
+    /**
+     * Obtener rutinas activas de un usuario
+     */
+    List<Routine> findByCreatedByUserIdAndIsActive(String userId, Boolean isActive);
 }

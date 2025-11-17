@@ -27,4 +27,6 @@ public class ExerciseCreateDTO {
     private Integer difficulty;
 
     private List<String> videos; // URLs opcionales
+
+    private String urlImg;
 }

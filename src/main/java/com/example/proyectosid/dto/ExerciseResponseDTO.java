@@ -13,6 +13,7 @@ public class ExerciseResponseDTO {
     private String type;
     private Integer duration;
     private Integer difficulty;
+    private String urlImg;
     private List<String> videos;
     private String createdByUsername;
     private String createdByName;

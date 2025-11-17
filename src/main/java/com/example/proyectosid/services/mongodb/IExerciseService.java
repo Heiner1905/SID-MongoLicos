@@ -19,4 +19,5 @@ public interface IExerciseService {
     List<Exercise> findAll();
 
     List<Exercise> getExercisesByUserId(String userId);
+
 }

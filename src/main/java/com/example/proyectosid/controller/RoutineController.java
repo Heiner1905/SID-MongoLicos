@@ -1,5 +1,7 @@
 package com.example.proyectosid.controller;
 
+import com.example.proyectosid.dto.RoutineResponseDTO;
+import com.example.proyectosid.mapper.RoutineMapper;
 import com.example.proyectosid.model.mongodb.Routine;
 import com.example.proyectosid.services.mongodb.IRoutineService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/routines")
@@ -18,6 +21,7 @@ import java.util.List;
 public class RoutineController {
 
     private final IRoutineService routineService;
+    private final RoutineMapper routineMapper;
 
     /**
      * Obtener rutinas activas del usuario
@@ -123,5 +127,44 @@ public class RoutineController {
         String username = authentication.getName();
         Routine adopted = routineService.adoptRoutine(routineId, username);
         return ResponseEntity.status(HttpStatus.CREATED).body(adopted);
+    }
+
+    @GetMapping("/my")
+    @PreAuthorize("hasAuthority('ROUTINE_READ')")
+    public ResponseEntity<List<RoutineResponseDTO>> getMyRoutines(Authentication authentication) {
+        String username = authentication.getName();
+        List<Routine> routines = routineService.getRoutinesByCreator(username);
+
+        List<RoutineResponseDTO> response = routines.stream()
+                .map(routineMapper::toResponseDTO)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/active")
+    @PreAuthorize("hasAuthority('ROUTINE_READ')")
+    public ResponseEntity<List<RoutineResponseDTO>> getActiveRoutines(Authentication authentication) {
+        String username = authentication.getName();
+        List<Routine> routines = routineService.getActiveRoutinesForUser(username);
+
+        List<RoutineResponseDTO> response = routines.stream()
+                .map(routineMapper::toResponseDTO)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/available")
+    @PreAuthorize("hasAuthority('ROUTINE_READ')")
+    public ResponseEntity<List<RoutineResponseDTO>> getAvailableRoutines(Authentication authentication) {
+        String username = authentication.getName();
+        List<Routine> routines = routineService.getAvailableRoutinesForUser(username);
+
+        List<RoutineResponseDTO> response = routines.stream()
+                .map(routineMapper::toResponseDTO)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
     }
 }

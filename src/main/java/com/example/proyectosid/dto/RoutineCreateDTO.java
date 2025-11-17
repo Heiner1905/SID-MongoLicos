@@ -15,6 +15,8 @@ public class RoutineCreateDTO {
     @NotBlank(message = "La descripción es obligatoria")
     private String description;
 
+    private String urlImg;
+
     @NotEmpty(message = "Debe incluir al menos un ejercicio")
     private List<RoutineExerciseDTO> exercises;
 }

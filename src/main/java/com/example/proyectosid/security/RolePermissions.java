@@ -37,12 +37,25 @@ public class RolePermissions {
      * Obtiene los permisos según el rol
      */
     public static Set<Permission> getPermissions(String role) {
-        switch (role.toUpperCase()) {
+        if (role == null) {
+            return Set.of();
+        }
+
+        String normalizedRole = role.toUpperCase().trim();
+
+        switch (normalizedRole) {
             case "TRAINER":
+            case "ENTRENADOR":
                 return TRAINER_PERMISSIONS;
+
+            case "USER":
+            case "USUARIO":
             case "STUDENT":
+            case "ESTUDIANTE":
             case "EMPLOYEE":
+            case "EMPLEADO":
                 return USER_PERMISSIONS;
+
             default:
                 return Set.of();
         }

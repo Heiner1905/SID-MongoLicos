@@ -27,4 +27,20 @@ public interface IRoutineService {
 
     Routine adoptRoutine(String templateId, String username);
 
+    /**
+     * Obtener rutinas creadas por el usuario
+     */
+    List<Routine> getRoutinesByCreator(String username);
+
+    /**
+     * Obtener rutinas activas para el usuario (propias y adoptadas)
+     */
+    List<Routine> getActiveRoutinesForUser(String username);
+
+    /**
+     * Obtener rutinas disponibles (no creadas por el usuario)
+     * Incluye rutinas predefinidas y certificadas de otros usuarios
+     */
+    List<Routine> getAvailableRoutinesForUser(String username);
+
 }

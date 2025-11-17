@@ -22,11 +22,9 @@ public class ProgressCreateDTO {
     private String exerciseType;
 
     // Métricas
-    @NotNull(message = "Las repeticiones son obligatorias")
     @Min(value = 0)
     private Integer reps;
 
-    @NotNull(message = "Las series son obligatorias")
     @Min(value = 1)
     private Integer sets;
 

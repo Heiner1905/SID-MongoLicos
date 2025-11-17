@@ -1,4 +1,3 @@
-// security/CustomUserDetailsService.java
 package com.example.proyectosid.security;
 
 import com.example.proyectosid.model.postgresql.User;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -30,26 +30,36 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new RuntimeException("Usuario inactivo");
         }
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPasswordHash(),
-                getAuthorities(user.getRole())
-        );
+        Collection<GrantedAuthority> authorities = getAuthorities(user.getRole());
+
+        System.out.println("Usuario: " + username);
+        System.out.println("Rol: " + user.getRole());
+        System.out.println("Authorities: " + authorities);
+
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(user.getUsername())
+                .password(user.getPasswordHash())
+                .authorities(authorities)
+                .accountExpired(false)
+                .accountLocked(false)
+                .credentialsExpired(false)
+                .disabled(!user.getIsActive())
+                .build();
     }
 
-    /**
-     * Convierte el rol y permisos en GrantedAuthorities
-     */
-    private Collection<? extends GrantedAuthority> getAuthorities(String role) {
-        // Agregar el rol como ROLE_XXX
-        Set<GrantedAuthority> authorities = RolePermissions.getPermissions(role)
-                .stream()
+    private Collection<GrantedAuthority> getAuthorities(String role) {
+        Set<Permission> permissions = RolePermissions.getPermissions(role);
+
+        Set<GrantedAuthority> permissionAuthorities = permissions.stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.name()))
                 .collect(Collectors.toSet());
 
-        // Agregar también el rol
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
+        Set<GrantedAuthority> roleAuthorities = Set.of(
+                new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()),
+                new SimpleGrantedAuthority(role.toLowerCase())
+        );
 
-        return authorities;
+        return Stream.concat(roleAuthorities.stream(), permissionAuthorities.stream())
+                .collect(Collectors.toSet());
     }
 }

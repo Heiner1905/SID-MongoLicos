@@ -1,5 +1,6 @@
 package com.example.proyectosid.services.impl.mongodb;
 
+import com.example.proyectosid.mapper.RoutineMapper;
 import com.example.proyectosid.model.mongodb.CreatedBy;
 import com.example.proyectosid.model.mongodb.Routine;
 import com.example.proyectosid.model.mongodb.RoutineAdoptedBy;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +22,7 @@ public class RoutineServiceImpl implements IRoutineService {
 
     private final RoutineRepository routineRepository;
     private final UserRepository userRepository;
+    private final RoutineMapper routineMapper;
 
     @Override
     public List<Routine> getRoutinesByUserId(String userId) {
@@ -156,5 +159,28 @@ public class RoutineServiceImpl implements IRoutineService {
         routineRepository.save(template); // Actualizar plantilla
 
         return routineRepository.save(newRoutine);
+    }
+
+    @Override
+    public List<Routine> getRoutinesByCreator(String username) {
+        return routineRepository.findByCreatedByUserId(username);
+    }
+
+    @Override
+    public List<Routine> getActiveRoutinesForUser(String username) {
+        // Rutinas activas creadas por el usuario
+        return routineRepository.findByCreatedByUserIdAndIsActive(username, true);
+    }
+
+    @Override
+    public List<Routine> getAvailableRoutinesForUser(String username) {
+        // Todas las rutinas que NO fueron creadas por el usuario
+        // Incluye rutinas predefinidas y certificadas de otros
+        List<Routine> allRoutines = routineRepository.findAll();
+
+        return allRoutines.stream()
+                .filter(routine -> !routine.getCreatedBy().getUserId().equals(username))
+                .filter(routine -> routine.getIsPredefined() || routine.getIsCertified())
+                .collect(Collectors.toList());
     }
 }
