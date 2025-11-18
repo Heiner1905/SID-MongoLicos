@@ -20,7 +20,8 @@
       "weight": 0.0,
       "time": 300,
       "distance": 0.0,
-      "effortLevel": 6
+      "effortLevel": 6,
+      "rhythm": 0
     }
   },
   {
@@ -44,7 +45,8 @@
       "weight": 0.0,
       "time": 450,
       "distance": 0.0,
-      "effortLevel": 7
+      "effortLevel": 7,
+      "rhythm": 0
     }
   },
   {
@@ -68,7 +70,8 @@
       "weight": 0.0,
       "time": 180,
       "distance": 0.0,
-      "effortLevel": 8
+      "effortLevel": 8,
+      "rhythm": 0
     }
   },
   {
@@ -92,7 +95,8 @@
       "weight": 60.0,
       "time": 480,
       "distance": 0.0,
-      "effortLevel": 9
+      "effortLevel": 9,
+      "rhythm": 0
     }
   },
   {
@@ -116,7 +120,8 @@
       "weight": 0.0,
       "time": 1200,
       "distance": 0.0,
-      "effortLevel": 5
+      "effortLevel": 5,
+      "rhythm": 0
     }
   },
   {
@@ -140,7 +145,34 @@
       "weight": 0.0,
       "time": 1800,
       "distance": 5.2,
-      "effortLevel": 7
+      "effortLevel": 7,
+      "rhythm": 11
+    }
+  },
+
+  {
+    "id": "progress_7",
+    "userId": "user_carlos",
+    "routineId": "routine_cardio_2",
+    "createdAt": "2025-11-06T07:30:00",
+    "completedAt": "2025-11-06T08:30:00",
+    "exercise": {
+      "exerciseId": "running_1",
+      "name": "Running",
+      "type": "cardio",
+      "duration": 1800,
+      "difficulty": 2,
+      "sets": 1,
+      "reps": 1
+    },
+    "metrics": {
+      "reps": 1,
+      "sets": 1,
+      "weight": 0.0,
+      "time": 1800,
+      "distance": 5.2,
+      "effortLevel": 7,
+      "rhythm": 10
     }
   }
 ]

@@ -24,4 +24,5 @@ public class ProgressResponseDTO {
     private Integer time;
     private Double distance;
     private Integer effortLevel;
+    private Integer rhythm;
 }

@@ -15,4 +15,5 @@ public class ProgressExercise {
     private Integer difficulty;   // 1-10
     private Integer sets;
     private Integer reps;
+    private Integer rhythm;
 }

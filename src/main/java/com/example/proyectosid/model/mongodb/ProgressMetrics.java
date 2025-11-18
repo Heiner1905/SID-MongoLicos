@@ -14,4 +14,5 @@ public class ProgressMetrics {
     private Integer time;       // segundos
     private Double distance;    // km
     private Integer effortLevel; // 1-10
+    private Integer rhythm;
 }

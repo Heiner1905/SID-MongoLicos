@@ -40,4 +40,6 @@ public class ProgressCreateDTO {
     @Min(value = 1, message = "El nivel de esfuerzo debe estar entre 1 y 10")
     @Max(value = 10, message = "El nivel de esfuerzo debe estar entre 1 y 10")
     private Integer effortLevel;
+
+    private Integer rhythm;
 }

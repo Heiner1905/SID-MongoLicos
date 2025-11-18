@@ -52,6 +52,7 @@ public class ProgressServiceImpl implements IProgressService {
         metrics.setTime(dto.getTime());
         metrics.setDistance(dto.getDistance());
         metrics.setEffortLevel(dto.getEffortLevel());
+        metrics.setRhythm(dto.getRhythm());
         progress.setMetrics(metrics);
 
         Progress saved = progressRepository.save(progress);
@@ -122,6 +123,7 @@ public class ProgressServiceImpl implements IProgressService {
         dto.setTime(progress.getMetrics().getTime());
         dto.setDistance(progress.getMetrics().getDistance());
         dto.setEffortLevel(progress.getMetrics().getEffortLevel());
+        dto.setRhythm(progress.getMetrics().getRhythm());
 
         return dto;
     }
