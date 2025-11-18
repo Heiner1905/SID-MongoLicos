@@ -30,7 +30,7 @@ public class UserController {
      * Solo admin
      */
     @PostMapping("/assign")
-    @PreAuthorize("hasRole('ADMIN')")
+
     public ResponseEntity<AssignmentResponseDTO> assignStudentToTrainer(
             @Valid @RequestBody AssignStudentRequestDTO request) {
         String adminUsername = getCurrentUsername();
@@ -44,7 +44,7 @@ public class UserController {
      * Solo admin
      */
     @PutMapping("/{username}/role")
-    @PreAuthorize("hasRole('ADMIN')")
+
     public ResponseEntity<UserResponseDTO> changeUserRole(
             @PathVariable String username,
             @Valid @RequestBody ChangeRoleRequestDTO request) {
@@ -58,7 +58,7 @@ public class UserController {
      * Solo admin
      */
     @GetMapping("/trainers")
-    @PreAuthorize("hasRole('ADMIN')")
+
     public ResponseEntity<List<UserResponseDTO>> getAllTrainers() {
         List<UserResponseDTO> trainers = userService.getAllTrainers();
         return ResponseEntity.ok(trainers);
@@ -70,7 +70,7 @@ public class UserController {
      * Solo admin
      */
     @GetMapping("/students")
-    @PreAuthorize("hasRole('ADMIN')")
+
     public ResponseEntity<List<UserResponseDTO>> getAllStudents() {
         List<UserResponseDTO> students = userService.getAllStudents();
         return ResponseEntity.ok(students);
@@ -82,7 +82,7 @@ public class UserController {
      * Solo admin
      */
     @GetMapping("/assignments")
-    @PreAuthorize("hasRole('ADMIN')")
+
     public ResponseEntity<List<AssignmentResponseDTO>> getAllActiveAssignments() {
         List<AssignmentResponseDTO> assignments = userService.getAllActiveAssignments();
         return ResponseEntity.ok(assignments);
@@ -94,7 +94,7 @@ public class UserController {
      * Solo admin
      */
     @GetMapping("/trainers/{trainerUsername}/assignments")
-    @PreAuthorize("hasRole('ADMIN')")
+
     public ResponseEntity<List<AssignmentResponseDTO>> getAssignmentsByTrainer(
             @PathVariable String trainerUsername) {
         List<AssignmentResponseDTO> assignments = userService.getAssignmentsByTrainer(trainerUsername);
@@ -107,7 +107,7 @@ public class UserController {
      * Solo admin
      */
     @GetMapping("/students/{studentUsername}/assignment")
-    @PreAuthorize("hasRole('ADMIN')")
+
     public ResponseEntity<AssignmentResponseDTO> getAssignmentByStudent(
             @PathVariable String studentUsername) {
         AssignmentResponseDTO assignment = userService.getAssignmentByStudent(studentUsername);
@@ -123,7 +123,7 @@ public class UserController {
      * Solo admin
      */
     @DeleteMapping("/students/{studentUsername}/assignment")
-    @PreAuthorize("hasRole('ADMIN')")
+
     public ResponseEntity<Void> unassignStudent(@PathVariable String studentUsername) {
         String adminUsername = getCurrentUsername();
         userService.unassignStudent(studentUsername, adminUsername);

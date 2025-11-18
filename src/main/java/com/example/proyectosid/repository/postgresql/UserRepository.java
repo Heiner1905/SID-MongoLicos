@@ -29,4 +29,8 @@ public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByStudentId(String studentId);
 
     List<User> findByRole(String role);
+
+    // Buscar usuarios por rol con relaciones cargadas (JOIN FETCH)
+    @Query("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.student LEFT JOIN FETCH u.employee WHERE u.role = :role")
+    List<User> findByRoleWithRelations(@Param("role") String role);
 }

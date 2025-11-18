@@ -32,7 +32,7 @@ public class UserServiceImpl implements IUserService {
         User student = userRepository.findByUsername(request.getStudentUsername())
                 .orElseThrow(() -> new RuntimeException("Estudiante no encontrado: " + request.getStudentUsername()));
 
-        if (!student.getRole().equals("user")) {
+        if (!student.getRole().equals("estudiante")) {
             throw new RuntimeException("El usuario especificado no es un estudiante (rol: " + student.getRole() + ")");
         }
 
@@ -44,7 +44,7 @@ public class UserServiceImpl implements IUserService {
         User trainer = userRepository.findByUsername(request.getTrainerUsername())
                 .orElseThrow(() -> new RuntimeException("Entrenador no encontrado: " + request.getTrainerUsername()));
 
-        if (!trainer.getRole().equals("trainer")) {
+        if (!trainer.getRole().equals("entrenador")) {
             throw new RuntimeException("El usuario especificado no es un entrenador (rol: " + trainer.getRole() + ")");
         }
 
@@ -73,8 +73,6 @@ public class UserServiceImpl implements IUserService {
         assignment.setTrainerId(trainer.getUsername());
         assignment.setAssignedAt(LocalDateTime.now());
         assignment.setIsActive(true);
-        assignment.setAssignedBy(adminUsername);
-        assignment.setCreatedAt(LocalDateTime.now());
 
         Assignment savedAssignment = assignmentRepository.save(assignment);
         return buildAssignmentResponseDTO(savedAssignment, student, trainer);
@@ -94,26 +92,26 @@ public class UserServiceImpl implements IUserService {
             throw new RuntimeException("El usuario ya tiene el rol: " + newRole);
         }
 
-        if (!currentRole.equals("user") && !currentRole.equals("trainer")) {
+        if (!currentRole.equals("estudiante") && !currentRole.equals("entrenador")) {
             throw new RuntimeException("No se puede cambiar el rol de un usuario con rol: " + currentRole);
         }
 
-        if (!newRole.equals("user") && !newRole.equals("trainer")) {
+        if (!newRole.equals("estudiante") && !newRole.equals("entrenador")) {
             throw new RuntimeException("El nuevo rol debe ser 'user' o 'trainer'");
         }
 
         // Si el usuario es un estudiante (tiene student_id) y se quiere cambiar a trainer
-        if (newRole.equals("trainer") && user.getStudentId() != null) {
+        if (newRole.equals("entrenador") && user.getStudentId() != null) {
             throw new RuntimeException("No se puede cambiar a entrenador un usuario que está asociado a un estudiante. Debe estar asociado a un empleado.");
         }
 
         // Si el usuario es un empleado (tiene employee_id) y se quiere cambiar a user
-        if (newRole.equals("user") && user.getEmployeeId() != null) {
+        if (newRole.equals("estudiante") && user.getEmployeeId() != null) {
             throw new RuntimeException("No se puede cambiar a estudiante un usuario que está asociado a un empleado. Debe estar asociado a un estudiante.");
         }
 
         // Si cambia de trainer a user, desasignar cualquier asignación activa donde era entrenador
-        if (currentRole.equals("trainer") && newRole.equals("user")) {
+        if (currentRole.equals("entrenador") && newRole.equals("estudiante")) {
             List<Assignment> activeAssignments = assignmentRepository.findActiveAssignmentsByTrainer(username);
             LocalDateTime now = LocalDateTime.now();
             for (Assignment assignment : activeAssignments) {
@@ -131,16 +129,18 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UserResponseDTO> getAllTrainers() {
-        List<User> trainers = userRepository.findByRole("trainer");
+        List<User> trainers = userRepository.findByRoleWithRelations("entrenador");
         return trainers.stream()
                 .map(this::buildUserResponseDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UserResponseDTO> getAllStudents() {
-        List<User> students = userRepository.findByRole("user");
+        List<User> students = userRepository.findByRoleWithRelations("estudiante");
         return students.stream()
                 .map(this::buildUserResponseDTO)
                 .collect(Collectors.toList());
@@ -275,8 +275,8 @@ public class UserServiceImpl implements IUserService {
                 .assignedAt(assignment.getAssignedAt())
                 .unassignedAt(assignment.getUnassignedAt())
                 .isActive(assignment.getIsActive())
-                .assignedBy(assignment.getAssignedBy())
-                .createdAt(assignment.getCreatedAt())
+                .assignedBy(null)  // Campo no disponible en el modelo actual
+                .createdAt(null)   // Campo no disponible en el modelo actual
                 .studentName(studentName)
                 .trainerName(trainerName)
                 .build();
